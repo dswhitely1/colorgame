@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { changeGameMode, newGame } from '../actions';
+import { getRandomColors, pickWinningColor } from '../functions';
 import Header from './Header';
 import Stripe from './Stripe';
 import SquareDisplay from './SquareDisplay';
@@ -7,43 +10,6 @@ import Squares from './Squares';
 import './App.css';
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			mode        : 'Hard', //default Mode
-			numS        : 6, //default Mode
-			pickedColor : 0, //winning Color
-			colors      : [], // random Colors
-		};
-	}
-
-	randomColor = () => {
-		let r = Math.ceil(Math.random() * 256);
-		let g = Math.ceil(Math.random() * 256);
-		let b = Math.ceil(Math.random() * 256);
-		return `rgb(${r}, ${g}, ${b})`;
-	};
-
-	pickWinningColor = (numSquares, setS) => {
-		let pcindex = Math.ceil(Math.random() * numSquares - 1);
-		if (!setS) {
-			return pcindex;
-		} else {
-			this.setState({ pickedColor: pcindex });
-		}
-	};
-
-	generateRandomColorsArray = (numSquares, setS) => {
-		let rc = [];
-		for (let i = 0; i < numSquares; i++) {
-			rc = [ ...rc, this.randomColor() ];
-		}
-		if (!setS) {
-			return rc;
-		} else {
-			this.setState({ colors: rc });
-		}
-	};
 	onModeSelect = (event) => {
 		let modeButtons = document.querySelectorAll('.mode');
 		let resetButton = document.querySelector('#reset');
@@ -68,19 +34,15 @@ class App extends Component {
 			modeButtons[3].classList.add('selected');
 			updates = { ...updates, mode: 'Master', numS: 12 };
 		}
-		updates = { ...updates, pickedColor: this.pickWinningColor(updates.numS, false) };
-		updates = { ...updates, colors: this.generateRandomColorsArray(updates.numS, false) };
+		updates = { ...updates, pickedColor: pickWinningColor(updates.numS) };
+		updates = { ...updates, colors: getRandomColors(updates.numS) };
 		h1.style.backgroundColor = 'steelblue';
-		this.setState({
-			mode        : updates.mode,
-			numS        : updates.numS,
-			pickedColor : updates.pickedColor,
-			colors      : updates.colors,
-		});
+		this.props.changeGameMode(updates.mode, updates.numS, updates.pickedColor, updates.colors);
 	};
+
 	renderList = () => {
-		if (this.state.colors[0] !== 'undefined') {
-			const randomSquareColor = this.state.colors.map((bgColor) => {
+		if (this.props.colors[0] !== 'undefined') {
+			const randomSquareColor = this.props.colors.map((bgColor) => {
 				return <Squares square={bgColor} key={bgColor} value={bgColor} squareChoice={this.onSquareClick} />;
 			});
 			return randomSquareColor;
@@ -92,7 +54,7 @@ class App extends Component {
 		let resetButton = document.querySelector('#reset');
 		let messageDisplay = document.querySelector('#message');
 		let h1 = document.querySelector('h1');
-		let pickedColor = this.state.colors[this.state.pickedColor];
+		let pickedColor = this.props.colors[this.props.pickedColor];
 		if (event.target.style.backgroundColor === pickedColor) {
 			messageDisplay.textContent = 'Winner';
 			this.changeColorsWin(pickedColor);
@@ -115,28 +77,18 @@ class App extends Component {
 		let resetButton = document.querySelector('#reset');
 		let messageDisplay = document.querySelector('#message');
 		let h1 = document.querySelector('h1');
-		let newGame = this.state;
+		let newColors = getRandomColors(this.props.numS);
+		let newWinColor = pickWinningColor(this.props.numS);
 		messageDisplay.textContent = '';
 		h1.style.backgroundColor = 'steelblue';
 		resetButton.textContent = 'New Colors';
-		this.setState({ mode: this.state.mode });
-		newGame = { ...newGame, pickedColor: this.pickWinningColor(newGame.numS, false) };
-		newGame = { ...newGame, colors: this.generateRandomColorsArray(newGame.numS, false) };
-		this.setState({
-			pickedColor : newGame.pickedColor,
-			colors      : newGame.colors,
-		});
+		this.props.newGame(this.props.mode, this.props.numS, newWinColor, newColors);
 	};
-
-	componentWillMount() {
-		this.pickWinningColor(this.state.numS, true);
-		this.generateRandomColorsArray(this.state.numS, true);
-	}
 
 	render() {
 		return (
 			<div>
-				<Header colors={this.state.colors} pickColor={this.state.pickedColor} />
+				<Header props={this.props} />
 				<Stripe changeMode={this.onModeSelect} newGame={this.onResetButtonClick} />
 				<SquareDisplay children={this.renderList} />
 			</div>
@@ -144,4 +96,13 @@ class App extends Component {
 	}
 }
 
-export default App;
+const mapStatesToProps = (state) => {
+	return {
+		mode        : state.gameMode.mode,
+		numS        : state.gameMode.numS,
+		pickedColor : state.gameMode.pickedColor,
+		colors      : state.gameMode.colors,
+	};
+};
+
+export default connect(mapStatesToProps, { changeGameMode, newGame })(App);

@@ -1,10 +1,11 @@
 import { CHANGE_GAME_MODE, NEW_GAME } from '../actions/types';
+import { getRandomColors, pickWinningColor } from '../functions';
 
 const INITIAL_STATE = {
 	mode        : 'Hard',
 	numS        : 6,
-	pickedColor : 0,
-	colors      : [],
+	pickedColor : pickWinningColor(6),
+	colors      : getRandomColors(6),
 };
 
 export default (state = INITIAL_STATE, action) => {
