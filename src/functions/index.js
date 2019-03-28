@@ -1,5 +1,3 @@
-export const resetButton = document.querySelector('#reset');
-
 const randomColor = () => {
 	let r = Math.ceil(Math.random() * 256);
 	let g = Math.ceil(Math.random() * 256);
