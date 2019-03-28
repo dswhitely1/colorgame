@@ -31,7 +31,6 @@ class App extends Component {
 		} else {
 			this.setState({ pickedColor: pcindex });
 		}
-		console.log(this.state.colors[pcindex]);
 	};
 
 	generateRandomColorsArray = (numSquares, setS) => {
@@ -101,7 +100,7 @@ class App extends Component {
 			h1.style.backgroundColor = pickedColor;
 		} else {
 			event.target.style.backgroundColor = '#232323';
-			document.querySelector('#message').textContent = 'Try Again';
+			messageDisplay.textContent = 'Try Again';
 		}
 	};
 
