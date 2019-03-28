@@ -20,7 +20,7 @@ class App extends Component {
 		for (let i = 0; i < modeButtons.length; i++) {
 			modeButtons[i].classList.remove('selected');
 		}
-		let updates = this.state;
+		let updates = this.props;
 		if (event.target.value === 'Easy') {
 			modeButtons[0].classList.add('selected');
 			updates = { ...updates, mode: 'Easy', numS: 3 };
