@@ -1,12 +1,13 @@
 import React from 'react';
 
 const Stripe = (props) => {
+	const { resetButton, message } = props.props;
 	return (
 		<div id='stripe'>
 			<button id='reset' onClick={props.newGame}>
-				New Colors
+				{resetButton}
 			</button>
-			<span id='message' />
+			<span id='message'>{message}</span>
 			<button onClick={props.changeMode} value='Easy' className='mode'>
 				Easy
 			</button>
