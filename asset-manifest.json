@@ -1,13 +1,13 @@
 {
   "main.css": "/colorgame/static/css/main.7dd840a6.chunk.css",
-  "main.js": "/colorgame/static/js/main.bc42c13d.chunk.js",
-  "main.js.map": "/colorgame/static/js/main.bc42c13d.chunk.js.map",
+  "main.js": "/colorgame/static/js/main.c33ceb89.chunk.js",
+  "main.js.map": "/colorgame/static/js/main.c33ceb89.chunk.js.map",
   "runtime~main.js": "/colorgame/static/js/runtime~main.cc6aee53.js",
   "runtime~main.js.map": "/colorgame/static/js/runtime~main.cc6aee53.js.map",
   "static/js/2.f27b986b.chunk.js": "/colorgame/static/js/2.f27b986b.chunk.js",
   "static/js/2.f27b986b.chunk.js.map": "/colorgame/static/js/2.f27b986b.chunk.js.map",
   "index.html": "/colorgame/index.html",
-  "precache-manifest.dbea66bf651d18aa0107d50d1e852e74.js": "/colorgame/precache-manifest.dbea66bf651d18aa0107d50d1e852e74.js",
+  "precache-manifest.564f1f1c9b127043e77e7b8312efa711.js": "/colorgame/precache-manifest.564f1f1c9b127043e77e7b8312efa711.js",
   "service-worker.js": "/colorgame/service-worker.js",
   "static/css/main.7dd840a6.chunk.css.map": "/colorgame/static/css/main.7dd840a6.chunk.css.map"
 }

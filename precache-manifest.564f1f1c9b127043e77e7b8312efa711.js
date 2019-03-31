@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c95254d578a3c22d0341",
+    "revision": "6600a20f101f5401e2f6",
     "url": "/colorgame/static/css/main.7dd840a6.chunk.css"
   },
   {
-    "revision": "c95254d578a3c22d0341",
-    "url": "/colorgame/static/js/main.bc42c13d.chunk.js"
+    "revision": "6600a20f101f5401e2f6",
+    "url": "/colorgame/static/js/main.c33ceb89.chunk.js"
   },
   {
     "revision": "997a0bfb173e56885417",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/colorgame/static/js/2.f27b986b.chunk.js"
   },
   {
-    "revision": "7d95e7debf047ac0f26312999289123f",
+    "revision": "8ef486063fdf82edb62875ab0b8a7752",
     "url": "/colorgame/index.html"
   }
 ];
