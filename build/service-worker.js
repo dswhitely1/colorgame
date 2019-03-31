@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/colorgame/precache-manifest.a77ae32b160699036535f28ba4fb8822.js"
+  "/colorgame/precache-manifest.564f1f1c9b127043e77e7b8312efa711.js"
 );
 
 workbox.clientsClaim();
