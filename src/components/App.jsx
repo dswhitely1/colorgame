@@ -11,7 +11,8 @@ import './App.css';
 
 class App extends Component {
 	onModeSelect = (e) => {
-		const { changeGameMode, mode } = this.props;
+		const { changeGameMode } = this.props;
+		const { mode } = this.props.colorgame;
 		let modeButtons = document.querySelectorAll('.mode');
 		modeButtons[modeButtonId(mode)].classList.remove('selected');
 		e.target.classList.add('selected');
@@ -24,7 +25,7 @@ class App extends Component {
 	};
 
 	renderList = () => {
-		const { colors } = this.props;
+		const { colors } = this.props.colorgame;
 		let i = -1;
 		if (colors[0] !== 'undefined') {
 			const randomSquareColor = colors.map((bgColor) => {
@@ -37,7 +38,8 @@ class App extends Component {
 		}
 	};
 	onSquareClick = (e) => {
-		const { colors, numS, pickedColor, winGame, updateMessage } = this.props;
+		const { winGame, updateMessage } = this.props;
+		const { colors, numS, pickedColor } = this.props.colorgame;
 		if (e.target.style.backgroundColor === colors[pickedColor]) {
 			winGame(changeColorsWin(numS, colors[pickedColor]));
 		} else {
@@ -47,15 +49,16 @@ class App extends Component {
 	};
 
 	onResetButtonClick = () => {
-		const { numS, newGame } = this.props;
+		const { newGame } = this.props;
+		const { numS } = this.props.colorgame;
 		newGame(pickWinningColor(numS), getRandomColors(numS));
 	};
 
 	render() {
 		return (
 			<div>
-				<Header props={this.props} />
-				<Stripe changeMode={this.onModeSelect} newGame={this.onResetButtonClick} props={this.props} />
+				<Header props={this.props.colorgame} />
+				<Stripe changeMode={this.onModeSelect} newGame={this.onResetButtonClick} props={this.props.colorgame} />
 				<SquareDisplay children={this.renderList} />
 			</div>
 		);
@@ -64,14 +67,7 @@ class App extends Component {
 
 const mapStatesToProps = (state) => {
 	return {
-		mode            : state.gameMode.mode,
-		numS            : state.gameMode.numS,
-		pickedColor     : state.gameMode.pickedColor,
-		colors          : state.gameMode.colors,
-		resetButton     : state.gameMode.resetButton,
-		message         : state.gameMode.message,
-		pickedColorText : state.gameMode.pickedColorText,
-		headerColor     : state.gameMode.headerColor,
+		colorgame : state.game,
 	};
 };
 
